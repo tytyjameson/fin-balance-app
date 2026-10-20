@@ -75,5 +75,5 @@ const NetIncome = ({ netIncome }) => {
       </div>
     </div>
   )}
-
+//this component will need to pass the income data to the parent in order to compare leftover money to wants/wishes section for trip or thing planning. 
   export default NetIncome; 
