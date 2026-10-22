@@ -36,7 +36,7 @@ const NetIncome = ({ netIncome }) => {
     //do that math here to get leftover money( if any ) and then update the state
     const netTotalArr = Object.values(userData);
     const netTotal = netTotalArr.reduce((el) => {
-      //each el needs to be converted to int and reduced. 
+      //each element needs to be converted to int and reduced. 
     })
     console.log('incoming data', userData )
   }
