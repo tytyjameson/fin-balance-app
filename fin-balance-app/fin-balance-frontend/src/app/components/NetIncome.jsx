@@ -8,18 +8,20 @@ const NetIncome = ({ netIncome }) => {
   const [userData, setUserData] = useState({
     mainIncome:"",
     secondaryIncome:"",
-    rentMortgage: "",
-    powerBill: "",
-    miscCost: "",
-    groceries: "",
-    eatOut: "",
-    takeOut: "",
-    carPayment: "",
-    gas: "",
-    insurance: "",
-    streamingServices: "",
-    hobbies: "",
-    miscEntertainment: "",
+    expenses : {
+                rentMortgage: "",
+                powerBill: "",
+                miscCost: "",
+                groceries: "",
+                eatOut: "",
+                takeOut: "",
+                carPayment: "",
+                gas: "",
+                insurance: "",
+                streamingServices: "",
+                hobbies: "",
+                miscEntertainment: "", 
+                }
   });
 
   const handleChange = (event) => {
@@ -27,19 +29,23 @@ const NetIncome = ({ netIncome }) => {
     
     setUserData((prevData) => ({
       ...prevData,
+      expenses: {
+      ...prevData.expenses,
       [name]: value,
+      }
     }));
+    
   };
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-    //do that math here to get leftover money( if any ) and then update the state
-    const netTotalArr = Object.values(userData);
-    const netTotal = netTotalArr.reduce((el) => {
-      //each element needs to be converted to int and reduced. 
-    })
-    console.log('incoming data', userData )
-  }
+    //Need to go over math and methods. gettting NaN & incomes are not showing up in input fields. Fix that first. 
+    const grossTotaIncome = parseInt(userData.mainIncome) + parseInt(userData.secondaryIncome);
+    const totalExpenseArr = Object.values(userData.expenses).map((el) => parseInt(el));
+    const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
+    // setLeftover((grossTotaIncome - netTotalExpenses).toString());   
+    console.log(grossTotaIncome)
+  };
 
   return (
     <div /*className={}*/>
@@ -55,27 +61,27 @@ const NetIncome = ({ netIncome }) => {
         <h4>Expenses</h4>
           <div>
             <h4>Living Expenses</h4>
-              <input name="rentMortgage" placeholder="Rent or Mortgage" value={userData.rentMortgage} onChange={handleChange}></input>
-              <input name="powerBill" placeholder="Power Bill Average" value={userData.powerBill} onChange={handleChange}></input>
-              <input name="miscCost" placeholder="Misc Cost for Domicile like Water, Trash, Parking Pass,etc..." value={userData.miscCost} onChange={handleChange}></input>
+              <input name="rentMortgage" placeholder="Rent or Mortgage" value={userData.expenses.rentMortgage} onChange={handleChange}></input>
+              <input name="powerBill" placeholder="Power Bill Average" value={userData.expenses.powerBill} onChange={handleChange}></input>
+              <input name="miscCost" placeholder="Misc Cost for Domicile like Water, Trash, Parking Pass,etc..." value={userData.expenses.miscCost} onChange={handleChange}></input>
             <h4>Food Expenses</h4>
-              <input name="groceries" placeholder="Groceries Monthly Average" value={userData.groceries} onChange={handleChange}></input>
-              <input name="eatOut" placeholder="Eating Out Cost" value={userData.eatOut} onChange={handleChange}></input>
-              <input name="takeOut" placeholder="Delivery and Takehome Food Cost Monthly Average" value={userData.takeOut} onChange={handleChange}></input>
+              <input name="groceries" placeholder="Groceries Monthly Average" value={userData.expenses.groceries} onChange={handleChange}></input>
+              <input name="eatOut" placeholder="Eating Out Cost" value={userData.expenses.eatOut} onChange={handleChange}></input>
+              <input name="takeOut" placeholder="Delivery and Takehome Food Cost Monthly Average" value={userData.expenses.takeOut} onChange={handleChange}></input>
             <h4>Transpertion Cost</h4>
-              <input name="carPayment" placeholder="Car Cost(ex. payment, repair/maintance)" value={userData.carPayment} onChange={handleChange}></input>
-              <input name="gas" placeholder="Gas" value={userData.gas} onChange={handleChange}></input>
-              <input name="insurance" placeholder="Insurance" value={userData.insurance} onChange={handleChange}></input>
+              <input name="carPayment" placeholder="Car Cost(ex. payment, repair/maintance)" value={userData.expenses.carPayment} onChange={handleChange}></input>
+              <input name="gas" placeholder="Gas" value={userData.expenses.gas} onChange={handleChange}></input>
+              <input name="insurance" placeholder="Insurance" value={userData.expenses.insurance} onChange={handleChange}></input>
             <h4>Fun Money: Things For Entertainment</h4>
-              <input name="streamingServices" placeholder="Streaming Services Subsription Cost" value={userData.streamingServices}onChange={handleChange}></input>
-              <input name="hobbies" placeholder="Hobbies Cost (collectibles and sport cost)" value={userData.hobbies}onChange={handleChange}></input>
-              <input name="miscEntertainment" placeholder="Things like Movies, Video Games, Amusment Parks, Shows ... etc" value={userData.miscEntertainment}onChange={handleChange}></input>
+              <input name="streamingServices" placeholder="Streaming Services Subsription Cost" value={userData.expenses.streamingServices}onChange={handleChange}></input>
+              <input name="hobbies" placeholder="Hobbies Cost (collectibles and sport cost)" value={userData.expenses.hobbies}onChange={handleChange}></input>
+              <input name="miscEntertainment" placeholder="Things like Movies, Video Games, Amusment Parks, Shows ... etc" value={userData.expenses.miscEntertainment}onChange={handleChange}></input>
           </div>
             <button type="submit">Submit</button>
       </form>
       <div>
         <h3>Total Leftover Money</h3>
-        <h2>{}</h2>
+        <h2>{leftover}</h2>
       </div>
     </div>
   )}
