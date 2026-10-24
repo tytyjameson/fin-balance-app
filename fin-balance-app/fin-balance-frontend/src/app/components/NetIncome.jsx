@@ -44,7 +44,7 @@ const NetIncome = ({ netIncome }) => {
     const totalExpenseArr = Object.values(userData.expenses).map((el) => parseInt(el));
     const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
     // setLeftover((grossTotaIncome - netTotalExpenses).toString());   
-    console.log(grossTotaIncome)
+    console.log(netTotalExpenses)
   };
 
   return (
