@@ -39,7 +39,7 @@ const NetIncome = ({ netIncome }) => {
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-    //Need to go over math and methods. gettting NaN & incomes are not showing up in input fields. Fix that first. 
+    //Need to go over math and methods. gettting NaN & incomes are not showing up in input fields.
     const grossTotaIncome = parseInt(userData.mainIncome) + parseInt(userData.secondaryIncome);
     const totalExpenseArr = Object.values(userData.expenses).map((el) => parseInt(el));
     const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
