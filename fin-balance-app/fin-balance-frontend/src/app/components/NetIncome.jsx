@@ -6,22 +6,24 @@ import React,{ useState } from "react";
 const NetIncome = ({ netIncome }) => {
   const [leftover, setLeftover ] = useState(0)
   const [userData, setUserData] = useState({
-    mainIncome:"",
-    secondaryIncome:"",
+    incomes : { 
+      mainIncome:"",
+      secondaryIncome:"",
+      },
     expenses : {
-                rentMortgage: "",
-                powerBill: "",
-                miscCost: "",
-                groceries: "",
-                eatOut: "",
-                takeOut: "",
-                carPayment: "",
-                gas: "",
-                insurance: "",
-                streamingServices: "",
-                hobbies: "",
-                miscEntertainment: "", 
-                }
+      rentMortgage: "",
+      powerBill: "",
+      miscCost: "",
+      groceries: "",
+      eatOut: "",
+      takeOut: "",
+      carPayment: "",
+      gas: "",
+      insurance: "",
+      streamingServices: "",
+      hobbies: "",
+      miscEntertainment: "", 
+      },
   });
 
   const handleChange = (event) => {
@@ -37,14 +39,15 @@ const NetIncome = ({ netIncome }) => {
     
   };
 
-  const handleSubmit = (event) =>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    //Need to go over math and methods. gettting NaN & incomes are not showing up in input 
-    const grossTotaIncome = parseInt(userData.mainIncome) + parseInt(userData.secondaryIncome);
-    const totalExpenseArr = Object.values(userData.expenses).map((el) => parseInt(el));
+    
+    const grossTotalIncome = Number(userData.incomes.mainIncome) + Number(userData.incomes.secondaryIncome);
+    const totalExpenseArr = Object.values(userData.expenses).map((el) => Number(el));
+    console.log(totalExpenseArr)
     const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
-    // setLeftover((grossTotaIncome - netTotalExpenses).toString());   
-    console.log(netTotalExpenses)
+    setLeftover((grossTotalIncome - netTotalExpenses).toString());   
+   //math isnt right but display number is showing. 
   };
 
   return (
@@ -54,9 +57,9 @@ const NetIncome = ({ netIncome }) => {
         <h3>Total Income</h3>
           <div>
             <h4>This is your main income that you take home after taxes.</h4>
-            <input name="mainIncome" placeholder="Main Income After Taxes" value={userData.mainIncome} onChange={handleChange}></input>
+            <input name="mainIncome" placeholder="Main Income After Taxes" value={userData.incomes.mainIncome} onChange={handleChange}></input>
             <h4>Let's face it, almost everyone has another source of income. This is for that.</h4>
-            <input name="secondaryIncome" placeholder="Side hustle/Secondary Income Post Taxes" value={userData.secondaryIncome} onChange={handleChange}></input>
+            <input name="secondaryIncome" placeholder="Side hustle/Secondary Income Post Taxes" value={userData.incomes.secondaryIncome} onChange={handleChange}></input>
           </div>
         <h4>Expenses</h4>
           <div>
