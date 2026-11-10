@@ -30,7 +30,10 @@ const NetIncome = ({ netIncome }) => {
     const { name , value } = event.target;
     
     setUserData((prevData) => ({
-      ...prevData,
+      incomes: {
+      ...prevData.incomes,
+      [name]: value,
+      },
       expenses: {
       ...prevData.expenses,
       [name]: value,
@@ -43,11 +46,12 @@ const NetIncome = ({ netIncome }) => {
     event.preventDefault();
     
     const grossTotalIncome = Number(userData.incomes.mainIncome) + Number(userData.incomes.secondaryIncome);
+    console.log('this is main income',userData)
     const totalExpenseArr = Object.values(userData.expenses).map((el) => Number(el));
     console.log(totalExpenseArr)
     const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
-    setLeftover((grossTotalIncome - netTotalExpenses).toString());   
-   //math isnt right but display number is showing. 
+    setLeftover(grossTotalIncome - netTotalExpenses);   
+   //getting numbers to show in all inputs but need to make two hooks for expense and income respectivily 
   };
 
   return (
