@@ -5,6 +5,8 @@ import React,{ useState } from "react";
 
 const NetIncome = ({ netIncome }) => {
   const [leftover, setLeftover ] = useState(0)
+  const [ expense, setExpense ] = useState({});
+  const [ incomes, setIncomes] = useState({});
   const [userData, setUserData] = useState({
     incomes : { 
       mainIncome:"",
@@ -30,14 +32,16 @@ const NetIncome = ({ netIncome }) => {
     const { name , value } = event.target;
     
     setUserData((prevData) => ({
+      ...prevData,
       incomes: {
       ...prevData.incomes,
       [name]: value,
       },
-      expenses: {
-      ...prevData.expenses,
-      [name]: value,
-      }
+      // expenses: {
+      // ...prevData.expenses,
+      // [name]: value,
+      // }
+      //gotta come back to this later to get the right info updated in the objects nested
     }));
     
   };
