@@ -3,10 +3,8 @@
 import React,{ useState } from "react";
 // import styles from "./NetIncome.module.css";
 
-const NetIncome = ({ netIncome }) => {
+const NetIncome = () => {
   const [leftover, setLeftover ] = useState(0)
-  const [ expense, setExpense ] = useState({});
-  const [ incomes, setIncomes] = useState({});
   const [userData, setUserData] = useState({
     incomes : { 
       mainIncome:"",
@@ -28,7 +26,7 @@ const NetIncome = ({ netIncome }) => {
       },
   });
 
-  const handleChange = (event) => {
+  const handleIncomeChange = (event) => {
     const { name , value } = event.target;
     
     setUserData((prevData) => ({
@@ -37,25 +35,27 @@ const NetIncome = ({ netIncome }) => {
       ...prevData.incomes,
       [name]: value,
       },
-      // expenses: {
-      // ...prevData.expenses,
-      // [name]: value,
-      // }
-      //gotta come back to this later to get the right info updated in the objects nested
     }));
-    
   };
+  const handleExpenseChange = (event) => {
+    const { name , value } = event.target;
 
+    setUserData((prevData) => ({
+      ...prevData,
+      expenses: {
+      ...prevData.expenses,
+      [name]: value,
+      },
+    }));
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     
     const grossTotalIncome = Number(userData.incomes.mainIncome) + Number(userData.incomes.secondaryIncome);
-    console.log('this is main income',userData)
     const totalExpenseArr = Object.values(userData.expenses).map((el) => Number(el));
-    console.log(totalExpenseArr)
     const netTotalExpenses = totalExpenseArr.reduce((acc, cur) =>  acc + cur, 0);
     setLeftover(grossTotalIncome - netTotalExpenses);   
-   //getting numbers to show in all inputs but need to make two hooks for expense and income respectivily 
   };
 
   return (
@@ -65,28 +65,28 @@ const NetIncome = ({ netIncome }) => {
         <h3>Total Income</h3>
           <div>
             <h4>This is your main income that you take home after taxes.</h4>
-            <input name="mainIncome" placeholder="Main Income After Taxes" value={userData.incomes.mainIncome} onChange={handleChange}></input>
+            <input name="mainIncome" placeholder="Main Income After Taxes" value={userData.incomes.mainIncome} onChange={handleIncomeChange}></input>
             <h4>Let's face it, almost everyone has another source of income. This is for that.</h4>
-            <input name="secondaryIncome" placeholder="Side hustle/Secondary Income Post Taxes" value={userData.incomes.secondaryIncome} onChange={handleChange}></input>
+            <input name="secondaryIncome" placeholder="Side hustle/Secondary Income Post Taxes" value={userData.incomes.secondaryIncome} onChange={handleIncomeChange}></input>
           </div>
         <h4>Expenses</h4>
           <div>
             <h4>Living Expenses</h4>
-              <input name="rentMortgage" placeholder="Rent or Mortgage" value={userData.expenses.rentMortgage} onChange={handleChange}></input>
-              <input name="powerBill" placeholder="Power Bill Average" value={userData.expenses.powerBill} onChange={handleChange}></input>
-              <input name="miscCost" placeholder="Misc Cost for Domicile like Water, Trash, Parking Pass,etc..." value={userData.expenses.miscCost} onChange={handleChange}></input>
+              <input name="rentMortgage" placeholder="Rent or Mortgage" value={userData.expenses.rentMortgage} onChange={handleExpenseChange}></input>
+              <input name="powerBill" placeholder="Power Bill Average" value={userData.expenses.powerBill} onChange={handleExpenseChange}></input>
+              <input name="miscCost" placeholder="Misc Cost for Domicile like Water, Trash, Parking Pass,etc..." value={userData.expenses.miscCost} onChange={handleExpenseChange}></input>
             <h4>Food Expenses</h4>
-              <input name="groceries" placeholder="Groceries Monthly Average" value={userData.expenses.groceries} onChange={handleChange}></input>
-              <input name="eatOut" placeholder="Eating Out Cost" value={userData.expenses.eatOut} onChange={handleChange}></input>
-              <input name="takeOut" placeholder="Delivery and Takehome Food Cost Monthly Average" value={userData.expenses.takeOut} onChange={handleChange}></input>
+              <input name="groceries" placeholder="Groceries Monthly Average" value={userData.expenses.groceries} onChange={handleExpenseChange}></input>
+              <input name="eatOut" placeholder="Eating Out Cost" value={userData.expenses.eatOut} onChange={handleExpenseChange}></input>
+              <input name="takeOut" placeholder="Delivery and Takehome Food Cost Monthly Average" value={userData.expenses.takeOut} onChange={handleExpenseChange}></input>
             <h4>Transpertion Cost</h4>
-              <input name="carPayment" placeholder="Car Cost(ex. payment, repair/maintance)" value={userData.expenses.carPayment} onChange={handleChange}></input>
-              <input name="gas" placeholder="Gas" value={userData.expenses.gas} onChange={handleChange}></input>
-              <input name="insurance" placeholder="Insurance" value={userData.expenses.insurance} onChange={handleChange}></input>
+              <input name="carPayment" placeholder="Car Cost(ex. payment, repair/maintance)" value={userData.expenses.carPayment} onChange={handleExpenseChange}></input>
+              <input name="gas" placeholder="Gas" value={userData.expenses.gas} onChange={handleExpenseChange}></input>
+              <input name="insurance" placeholder="Insurance" value={userData.expenses.insurance} onChange={handleExpenseChange}></input>
             <h4>Fun Money: Things For Entertainment</h4>
-              <input name="streamingServices" placeholder="Streaming Services Subsription Cost" value={userData.expenses.streamingServices}onChange={handleChange}></input>
-              <input name="hobbies" placeholder="Hobbies Cost (collectibles and sport cost)" value={userData.expenses.hobbies}onChange={handleChange}></input>
-              <input name="miscEntertainment" placeholder="Things like Movies, Video Games, Amusment Parks, Shows ... etc" value={userData.expenses.miscEntertainment}onChange={handleChange}></input>
+              <input name="streamingServices" placeholder="Streaming Services Subsription Cost" value={userData.expenses.streamingServices} onChange={handleExpenseChange}></input>
+              <input name="hobbies" placeholder="Hobbies Cost (collectibles and sport cost)" value={userData.expenses.hobbies} onChange={handleExpenseChange}></input>
+              <input name="miscEntertainment" placeholder="Things like Movies, Video Games, Amusment Parks, Shows ... etc" value={userData.expenses.miscEntertainment} onChange={handleExpenseChange}></input>
           </div>
             <button type="submit">Submit</button>
       </form>
@@ -98,3 +98,4 @@ const NetIncome = ({ netIncome }) => {
   )}
 //this component will need to pass the income data to the parent in order to compare leftover money to wants/wishes section for trip or thing planning. 
   export default NetIncome; 
+//next up we create a component that will host the "left over money in the top right off each page. to carry over for finacial planning."
